@@ -32,7 +32,11 @@
         function askName(e) {
             const el = e.target;
             const isPrank = el.classList.contains('prank');
-            const name = window.prompt('Siapa nama kamu?', '') ?? '';
+            const name = window.prompt('Siapa nama kamu?', '');
+            if (!name) {
+                alert('Maaf, nama anda tidak boleh kosong.');
+                return;
+            }
             const baseurl = window.location.origin;
             window.location.href = `${baseurl}/sidoi/?name=${name}&prank=${isPrank}`;
         }
