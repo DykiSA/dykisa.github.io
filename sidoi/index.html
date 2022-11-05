@@ -29,7 +29,7 @@
         }
 
         function handlePositiveFeedback(e) {
-            const isPrank = getUrlParam('prank') || false;
+            const isPrank = getUrlParam('prank') == 'true' || false;
             const siDoi = getUrlParam('name') || 'dia';
             const body = document.getElementsByTagName('body')[0];
             if (isPrank) {
