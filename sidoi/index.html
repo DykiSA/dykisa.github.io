@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertanyaan untuk si Doi</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            position: relative;
+        }
+        .btn {
+            border-radius:5px;
+            border-style: solid;
+            border-width: 1px;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            padding:16px 31px;
+            text-decoration:none;
+        }
+        .btn:active {
+            position:relative;
+            top:1px;
+        }
+        .btn.green {
+            text-shadow:0px 1px 0px #2f6627;
+            background-color:#44c767;
+            border-color: #18ab29;
+        }
+        .btn.green:hover {
+            background-color:#1cbf68;
+        }
+        .btn.red {
+            background-color:#bf0707d7;
+            border-color: #ab1818;
+        }
+        .btn.red:hover {
+            background-color:#a90808d7;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Apakah kamu sayang sama <span id="nama-doi"></span>?
+    </h1>
+
+    <button class="btn green" id="btn-positive">Sayang Banget</button>
+    <button class="btn red" id="btn-negative">Ih, Najis!!!</button>
+
+    <script>
+        let urlParams;
+        window.onload = function() {
+            const siDoi = getUrlParam('name') || 'dia';
+            const el = document.getElementById('nama-doi');
+            el.innerText = siDoi;
+
+            const positiveBtn = document.getElementById('btn-positive');
+            positiveBtn.addEventListener('click', handlePositiveFeedback);
+            const negativeBtn = document.getElementById('btn-negative');
+            negativeBtn.addEventListener('mouseover', moveAwayTheButton);
+            negativeBtn.addEventListener('click', moveAwayTheButton);
+        }
+
+        function handlePositiveFeedback(e) {
+            const isPrank = getUrlParam('prank') || false;
+            const siDoi = getUrlParam('name') || 'dia';
+            const body = document.getElementsByTagName('body');
+            if (isPrank) {
+                body[0].innerHTML = `
+                    <h1>Terimakasih telah sayang sama ${siDoi}! 😊😊😊</h1>
+                    <p>Tapi maaf si <strong>${siDoi}</strong> gak sayang sama kamu. 😞🤪🤪</p>
+                `;
+            } else {
+                body[0].innerHTML = `
+                    <h1>Terimakasih telah sayang sama ${siDoi}! 😊😊😊</h1>
+                    <p>Si <strong>${siDoi}</strong> juga sayang sama kamu. ❤️❤️❤️</p>
+                `;
+            }
+        }
+
+        function moveAwayTheButton(e) {
+            console.log(e)
+            e.target.style.position = 'absolute';
+            e.target.style.top = Math.floor((Math.random() * (window.innerHeight - 100))) + 'px';
+            e.target.style.left = Math.floor((Math.random() * (window.innerWidth - 100))) + 'px';
+        }
+
+        function getUrlParam(name) {
+            if (!urlParams) {
+                const queryString = window.location.search;
+                urlParams = new URLSearchParams(queryString);
+            }
+            return urlParams.get(name);
+        }
+    </script>
+</body>
+</html>
